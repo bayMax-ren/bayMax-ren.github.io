@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html,
+    body {
+        height: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    button {
+        padding: 15px;
+    }
+</style>
+</head>
+<body>
+  <button onclick="call()">通用分享</button>
+  <button onclick="nativeCall()">原生分享</button>
+  <script type="text/javascript" src="../NativeShare.js"></script>
+  <script>
+    var nativeShare = new NativeShare()
+    var shareData = {
+        title: 'yamibuyTitle',
+        desc: 'yamibuyDescription',
+        // 如果是微信该link的域名必须要在微信后台配置的安全域名之内的。
+        link: 'https://www.yamibuy.com/zh/p/chando-himalaya-snow-deep-moisture-cream-for-dry-skin/1022182491',
+        icon: 'https://cdn.yamibuy.net/statics/prd-k8s/ec-website-nb/website/nb/images/logo&cn.png',
+        // 不要过于依赖以下两个回调，很多浏览器是不支持的
+        success: function() {
+            alert('success')
+        },
+        fail: function() {
+            alert('fail')
+        }
+    }
+    nativeShare.setShareData(shareData)
+    function call(command) {
+      alert(1)
+        try {
+            nativeShare.call(command)
+        } catch (err) {
+            // 如果不支持，你可以在这里做降级处理
+            alert(err.message)
+        }
+    }
+    function nativeCall(command) {
+      alert(2)
+        try {
+          navigator.share({
+              title: 'yamibuyTitle',
+              text: 'Hello World',
+              url: 'https://developer.mozilla.org',
+            })
+            .then(() => alert('Share was successful.'))
+            .catch((error) => alert('Sharing failed'+ JSON.stringify(error)));
+        } catch (err) {
+            // 如果不支持，你可以在这里做降级处理
+            alert(err.message)
+        }
+    }
+  </script>
+</body>
+</html>
