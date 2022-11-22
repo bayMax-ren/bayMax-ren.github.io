@@ -60,7 +60,7 @@
               text: 'Hello World',
               url: 'https://www.yamibuy.com/zh/p/chando-himalaya-snow-deep-moisture-cream-for-dry-skin/1022182491',
             })
-            .then(() => alert('Share was successful.'))
+            .then(res => console.log(res))
             .catch((error) => alert('Sharing failed'+ JSON.stringify(error)));
         } catch (err) {
             // 如果不支持，你可以在这里做降级处理
